@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright Vespa.ai. Licensed under the terms of the Apache 2.0 license. -->
+<services version="1.0" xmlns:deploy="vespa" xmlns:preprocess="properties"
+  minimum-required-vespa-version="8.327.49">
+
+  <container id="default" version="1.0">
+
+    <document-api />
+
+    <!-- Link to your OpenAI API key stored as a Vespa Cloud secret -->
+    <secrets>
+      <openai-api-key vault="my-vault-name" name="my-secret-name" />
+    </secrets>
+
+    <!-- Component to connect to OpenAI -->
+    <component id="openai" class="ai.vespa.llm.clients.OpenAI">
+      <config name="ai.vespa.llm.clients.llm-client">
+        <apiKeySecretName>openai-api-key</apiKeySecretName>
+        <model>gpt-4</model> <!-- You can use gpt-4-turbo or gpt-3.5-turbo -->
+      </config>
+    </component>
+
+    <!-- Define the search chain using the OpenAI LLM -->
+    <search>
+      <chain id="openai" inherits="vespa">
+        <searcher id="ai.vespa.search.llm.RAGSearcher">
+          <config name="ai.vespa.search.llm.llm-searcher">
+            <providerId>openai</providerId>
+          </config>
+        </searcher>
+      </chain>
+    </search>
+
+    <!-- API access clients -->
+    <clients>
+      <client id="serve" permissions="read">
+        <certificate file="security/serve.pem" />
+      </client>
+      <client id="ingest" permissions="write">
+        <certificate file="security/ingest.pem" />
+      </client>
+      <client id="full_access" permissions="read,write">
+        <certificate file="security/full_access.pem" />
+      </client>
+    </clients>
+
+  </container>
+
+  <!-- Content cluster definition -->
+  <content id="msmarco" version="1.0">
+    <redundancy>1</redundancy>
+    <documents>
+      <document mode="index" type="passage" />
+    </documents>
+    <nodes>
+      <node hostalias="node1" distribution-key="0" />
+    </nodes>
+  </content>
+
+</services>

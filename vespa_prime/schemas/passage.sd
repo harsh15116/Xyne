@@ -1,0 +1,61 @@
+schema passage {
+
+  document passage {
+
+    field document_id type string {
+      indexing: summary | attribute
+    }
+
+    field chunk_id type string {
+      indexing: summary | attribute
+    }
+
+    field title type string {
+      indexing: summary | index
+      index: enable-bm25
+    }
+
+    field document_type type string {
+      indexing: summary | index
+    }
+
+    field last_modified type long {
+      indexing: summary | attribute
+    }
+
+    field metadata type string {
+      indexing: summary
+    }
+
+    field text_summary type string {
+      indexing: summary | index
+      index: enable-bm25
+    }
+
+    field content type string {
+      indexing: summary | index
+      index: enable-bm25
+    }
+
+    field embedding type tensor<float>(x[384]) {
+      indexing: attribute
+      attribute {
+        distance-metric: angular
+      }
+    }
+  }
+
+  fieldset default {
+    fields: title, document_type, text_summary, content
+  }
+
+  rank-profile default {
+    first-phase {
+      expression: bm25(title) + bm25(text_summary) + bm25(content)
+    }
+    function query(query_embedding) {
+      expression: query_embedding
+    }
+  }
+
+}
