@@ -2,6 +2,10 @@
 
 This project implements a TypeScript application that retrieves content from Google Workspace (Docs, Sheets, Calendar), processes it for RAG (Retrieval Augmented Generation), and indexes it in Vespa for search and chat.
 
+## Video
+
+[Click here to see demo video](https://drive.google.com/file/d/1PPMRcgWBvZQ9ZXM6MKEZCvo5OH15zo9z/view)
+
 ## Features
 
 - **Google OAuth 2.0 Integration**: Secure authentication for accessing Google Workspace content
@@ -11,6 +15,7 @@ This project implements a TypeScript application that retrieves content from Goo
 - **TypeScript Implementation**: Strongly typed codebase with clean architecture
 
 ## Architecture
+[Check out complete architecture here](https://github.com/harsh15116/Xyne/blob/master/architecture.md)
 
 ### 1. Authentication Flow
 
@@ -51,7 +56,7 @@ The chat interface:
 ### Prerequisites
 
 1. Node.js 18+ and npm/yarn
-2. Vespa instance (local or cloud)
+2. Vespa instance (cloud)
 3. Google Cloud Project with OAuth credentials
 4. Gemini API key
 
