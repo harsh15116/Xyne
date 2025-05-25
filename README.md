@@ -6,6 +6,13 @@ This project implements a TypeScript application that retrieves content from Goo
 
 [Click here to see demo video](https://drive.google.com/file/d/1PPMRcgWBvZQ9ZXM6MKEZCvo5OH15zo9z/view)
 
+## Screenshots
+![Screenshot 2025-05-25 203424](https://github.com/user-attachments/assets/f4c2047a-c474-4c8b-bb26-0bf9edeb73cb)
+![Screenshot 2025-05-25 203445](https://github.com/user-attachments/assets/e1d4edb9-36df-4ca3-b5c4-545f9a0cadf9)
+![Screenshot 2025-05-25 203531](https://github.com/user-attachments/assets/7f5b33aa-0ad9-4975-b44a-3c891b502517)
+
+
+
 ## Features
 
 - **Google OAuth 2.0 Integration**: Secure authentication for accessing Google Workspace content
